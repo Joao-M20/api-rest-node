@@ -1,6 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
-import DatabaseError from "../models/errors/database.error.model";
 import userRepository from "../repositories/user.repository";
 
 /* get /users
@@ -12,6 +11,8 @@ delete /users/:uuid */
 const usersRoute = Router();
 
 usersRoute.get('/users', async (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.headers['authorization']);
+
     const users = await userRepository.findAllUsers();
     res.status(StatusCodes.OK).send(users);
 });
